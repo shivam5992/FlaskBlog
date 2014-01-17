@@ -2,7 +2,7 @@
 
 # C extensions
 *.so
-
+flask
 # Packages
 *.egg
 *.egg-info
@@ -42,5 +42,3 @@ nosetests.xml
 *.cfg
 .DS_Store
 tmp/*
-
-flask
