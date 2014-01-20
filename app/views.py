@@ -35,6 +35,8 @@ def after_login(resp):
 		nickname = resp.nickname
 		if nickname is None or nickname == "":
 			nickname = resp.email.split('@')[0]
+		nickname = User.make_unique_nickname(nickname)
+		user = User(nickname = nickname, email = resp.email, role = ROLE_USER)
 		user = User(nickname = nickname, email = resp.email, role = ROLE_USER)
 		db.session.add(user)
 		db.session.commit()
@@ -130,7 +132,7 @@ Handling Errors and Exceptions
 def internal_error(error):
 	return render_template('404.html'), 404
 
-@app.route(500)
+@app.errorhandler(500)
 def internal_error(error):
 	db.session.rollback()
 	return render_template('505.hmtl'), 505
